@@ -1,3 +1,13 @@
+# ECS queues based autoscaling
+
+## Description
+
+This module creates an ECS cluster and service with an autoscaling configuration based on a custom metric that represents the number of messages per task.
+To update the metric value, the module creates a Event bridge scheduler that runs in a given cron expression and sends a message to a SNS topic. The topic triggers a lambda function that updates the metric value.
+
+## Usage
+
+```hcl
 provider "aws" {
   region = "us-east-1"
 }
@@ -5,7 +15,7 @@ provider "aws" {
 module "test" {
   source = "../"
 
-  account_id          = ""
+  account_id          = "12345678912"
   aws_region          = "us-east-1"
   messages_per_task   = 4
   schedule_expression = "rate(2 minutes)"
@@ -51,3 +61,9 @@ module "test" {
     }
   }
 }
+
+```
+
+## Network configuration
+
+You can use the `vpc` property inside the `service` to create a new VPC or use an existing one by setting the `network` property with your *subnets* and *security groups*.

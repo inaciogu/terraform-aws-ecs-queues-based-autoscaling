@@ -43,7 +43,11 @@ variable "messages_per_task" {
 variable "cluster_name" {
   description = "Name of the ECS cluster"
   type        = string
+}
 
+variable "create_cluster" {
+  description = "Whether to create the cluster"
+  type        = bool
 }
 
 variable "service" {
@@ -85,11 +89,15 @@ variable "service" {
       cpu    = number # CPU units
       memory = number # Memory units
     })
-    network = object({
+    network = optional(object({
+      subnets         = list(string) # Subnet IDs
+      security_groups = list(string) # Security group IDs
+    }))
+    vpc = optional(object({
       vpc_cidr_block             = string       # CIDR block of the VPC
       public_subnet_cidr_blocks  = list(string) # CIDR blocks of the public subnets
       private_subnet_cidr_blocks = list(string) # CIDR blocks of the private subnets
       security_group_name        = string       # Name of the security group
-    })
+    }))
   })
 }
