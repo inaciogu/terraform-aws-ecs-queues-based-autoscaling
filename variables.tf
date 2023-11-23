@@ -52,13 +52,13 @@ variable "service" {
     name          = string # Name of the service
     desired_count = number # Desired number of tasks
     autoscaling = object({
-      min_capacity            = number # Minimum number of tasks
-      max_capacity            = number # Maximum number of tasks
-      metric_target_value     = number # Target value of the metric
-      scale_up_cooldown       = number # Cooldown of the scale up policy
-      scale_down_cooldown     = number # Cooldown of the scale down policy
-      scale_up_alarm_period   = number # Period of the scale up alarm
-      scale_down_alarm_period = number # Period of the scale down alarm
+      min_capacity            = number           # Minimum number of tasks
+      max_capacity            = number           # Maximum number of tasks
+      metric_target_value     = number           # Target value of the metric
+      scale_up_cooldown       = optional(number) # Cooldown of the scale up policy
+      scale_down_cooldown     = optional(number) # Cooldown of the scale down policy
+      scale_up_alarm_period   = optional(number) # Period of the scale up alarm
+      scale_down_alarm_period = optional(number) # Period of the scale down alarm
     })
     task_definition = object({
       family_name = string # Name of the task definition family
