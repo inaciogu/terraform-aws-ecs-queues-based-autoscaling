@@ -5,7 +5,7 @@ module "scheduler" {
   account_id = var.account_id
 
   schedulers = [{
-    name                = "${var.service.name}-queues-processing"
+    name                = "${var.service.name}"
     description         = "This is a test scheduler"
     schedule_expression = var.schedule_expression
     mode                = "OFF"

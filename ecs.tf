@@ -4,6 +4,7 @@ locals {
 
 module "ecs-service" {
   source = "github.com/inaciogu/terraform-aws-ecs-fargate-deployment"
+  count  = var.create_service ? 1 : 0
 
   aws_region = var.aws_region
   account_id = var.account_id
