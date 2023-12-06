@@ -28,6 +28,7 @@ variable "schedule_expression" {
 variable "topic_name" {
   description = "Name of the SNS topic to trigger the Lambda function"
   type        = string
+  default     = "process_queues"
 }
 
 variable "queues_prefix" {
@@ -48,13 +49,20 @@ variable "cluster_name" {
 variable "create_cluster" {
   description = "Whether to create the cluster"
   type        = bool
+  default     = false
+}
+
+variable "create_service" {
+  description = "Whether to create the service"
+  type        = bool
+  default     = true
 }
 
 variable "service" {
   description = "ECS service to be scaled up"
   type = object({
-    name          = string # Name of the service
-    desired_count = number # Desired number of tasks
+    name          = string           # Name of the service
+    desired_count = optional(number) # Desired number of tasks
     autoscaling = object({
       min_capacity            = number           # Minimum number of tasks
       max_capacity            = number           # Maximum number of tasks
@@ -64,7 +72,7 @@ variable "service" {
       scale_up_alarm_period   = optional(number) # Period of the scale up alarm
       scale_down_alarm_period = optional(number) # Period of the scale down alarm
     })
-    task_definition = object({
+    task_definition = optional(object({
       family_name = string # Name of the task definition family
       container_definitions = list(object({
         name                    = string           # Name of the container
@@ -88,10 +96,16 @@ variable "service" {
       }))
       cpu    = number # CPU units
       memory = number # Memory units
-    })
+    }))
     network = optional(object({
-      subnets         = list(string) # Subnet IDs
-      security_groups = list(string) # Security group IDs
+      security_groups_tag = object({
+        key    = string       # Key of the tag
+        values = list(string) # Value of the tag
+      })
+      subnets_tag = object({
+        key    = string       # Key of the tag
+        values = list(string) # Value of the tag
+      })
     }))
     vpc = optional(object({
       vpc_cidr_block             = string       # CIDR block of the VPC

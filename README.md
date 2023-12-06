@@ -56,8 +56,14 @@ module "test" {
       ]
     }
     network = {
-      subnets         = ["subnet-00000000000"]
-      security_groups = ["sg-00000000000"]
+      subnets_tags         = {
+				key	 = "Name"
+				values = ["test-subnet"]
+			}
+      security_groups_tags = {
+				key	 = "Name"
+				values = ["test-sg"]
+			}
     }
   }
 }
@@ -67,3 +73,7 @@ module "test" {
 ## Network configuration
 
 You can use the `vpc` property inside the `service` to create a new VPC or use an existing one by setting the `network` property with your *subnets* and *security groups*.
+
+## Create autoscaling only
+
+If you only want to create autoscaling for an existing service. Set the `create_cluster` and `create_service` variables to false. After that, define the cluster name and service name and autoscaling rules
