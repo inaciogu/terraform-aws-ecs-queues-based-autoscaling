@@ -3,13 +3,13 @@ locals {
 }
 
 module "ecs-service" {
-  source = "github.com/inaciogu/terraform-aws-ecs-fargate-deployment"
+  source = "github.com/Coaktion/terraform-aws-ecs-fargate-module"
   count  = var.create_service ? 1 : 0
 
   aws_region = var.aws_region
   account_id = var.account_id
 
-  vpc_cidr_block             = local.has_vpc ? var.service.vpc.cidr_block : null
+  vpc_cidr_block             = local.has_vpc ? var.service.vpc.vpc_cidr_block : null
   public_subnet_cidr_blocks  = local.has_vpc ? var.service.vpc.public_subnet_cidr_blocks : []
   private_subnet_cidr_blocks = local.has_vpc ? var.service.vpc.private_subnet_cidr_blocks : []
   security_group_name        = local.has_vpc ? var.service.vpc.security_group_name : null
