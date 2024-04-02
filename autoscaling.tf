@@ -72,7 +72,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_scale_up_alarm" {
   metric_name         = "${var.cluster_name}-${var.service.name}-MessagesPerTask"
   namespace           = "AWS/ECS"
   period              = var.service.autoscaling.scale_up_alarm_period
-  statistic           = "Sum"
+  statistic           = "Average"
   threshold           = var.service.autoscaling.metric_target_value
   alarm_description   = "This metric monitors the number of tasks that are required to process the messages in the SQS queues"
   alarm_actions       = [aws_appautoscaling_policy.ecs_scale_up_policy.arn]
@@ -89,7 +89,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_scale_down_alarm" {
   metric_name         = "${var.cluster_name}-${var.service.name}-MessagesPerTask"
   namespace           = "AWS/ECS"
   period              = var.service.autoscaling.scale_down_alarm_period
-  statistic           = "Sum"
+  statistic           = "Average"
   threshold           = var.service.autoscaling.metric_target_value
   alarm_description   = "This metric monitors the number of tasks that are required to process the messages in the SQS queues"
   alarm_actions       = [aws_appautoscaling_policy.ecs_scale_down_policy.arn]
@@ -105,7 +105,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_queues_require_consumer_alarm" {
   evaluation_periods  = 1
   metric_name         = "${var.cluster_name}-${var.service.name}-QueuesRequireConsumer"
   namespace           = "AWS/ECS"
-  period              = var.service.autoscaling.scale_down_alarm_period
+  period              = var.service.autoscaling.queues_require_consumer_alarm_period
   statistic           = "Average"
   threshold           = 0
   alarm_description   = "This metric indicates if the monitored queues require a consumer. The value can be 0 or 1."
