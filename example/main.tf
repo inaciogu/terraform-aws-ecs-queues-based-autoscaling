@@ -54,15 +54,16 @@ module "test" {
   create_cluster = true
   service = {
     name          = "test-service"
-    desired_count = 1
+    desired_count = 0
     autoscaling = {
       max_capacity            = 10
       min_capacity            = 0
       metric_target_value     = 10
       scale_up_cooldown       = 30
-      scale_down_cooldown     = 180
+      scale_down_cooldown     = 30
       scale_up_alarm_period   = 60
       scale_down_alarm_period = 180
+      queues_require_consumer_alarm_period = 60
     }
     task_definition = {
       cpu         = 512
