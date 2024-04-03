@@ -106,7 +106,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_queues_require_consumer_alarm" {
   metric_name         = "${var.cluster_name}-${var.service.name}-QueuesRequireConsumer"
   namespace           = "AWS/ECS"
   period              = var.service.autoscaling.queues_require_consumer_alarm_period
-  statistic           = "Average"
+  statistic           = "Minimum"
   threshold           = 0
   alarm_description   = "This metric indicates if the monitored queues require a consumer. The value can be 0 or 1."
   alarm_actions       = [aws_appautoscaling_policy.ecs_queues_require_consumer_policy.arn]
