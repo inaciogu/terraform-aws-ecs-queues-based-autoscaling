@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@coaktion/aws": "^1.1.1",
+    "@coaktion/evolutty": "^2.1.2",
+    "dotenv": "^16.4.5"
+  },
+  "name": "example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/node": "^20.12.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

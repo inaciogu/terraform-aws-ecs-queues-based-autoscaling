@@ -71,6 +71,7 @@ variable "service" {
       scale_down_cooldown     = optional(number) # Cooldown of the scale down policy
       scale_up_alarm_period   = optional(number) # Period of the scale up alarm
       scale_down_alarm_period = optional(number) # Period of the scale down alarm
+      queues_require_consumer_alarm_period = optional(number) # Period of the queues require consumer alarm
     })
     task_definition = optional(object({
       family_name = string # Name of the task definition family
@@ -88,7 +89,7 @@ variable "service" {
           name  = string              # Name of the environment variable
           value = string              # Value of the environment variable
         })))                          # Environment variables
-        secret_arn = optional(string) # ARN of the secret to get the environment variables
+        secret_manager = optional(string) # Nmae of the secret to get the environment variables
         secrets = optional(list(object({
           name      = string # Name of the secret
           valueFrom = string # ARN of the secret
