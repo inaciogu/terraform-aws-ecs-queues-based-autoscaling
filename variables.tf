@@ -89,7 +89,7 @@ variable "service" {
           name  = string              # Name of the environment variable
           value = string              # Value of the environment variable
         })))                          # Environment variables
-        secret_arn = optional(string) # ARN of the secret to get the environment variables
+        secret_manager = optional(string) # Nmae of the secret to get the environment variables
         secrets = optional(list(object({
           name      = string # Name of the secret
           valueFrom = string # ARN of the secret
